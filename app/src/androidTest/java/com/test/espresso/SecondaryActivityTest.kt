@@ -1,9 +1,11 @@
 package com.test.espresso
 
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import org.junit.Rule
@@ -20,27 +22,27 @@ class SecondaryActivityTest{
     fun test_isActivityInView() {
         val activityScenario = ActivityScenario.launch(SecondaryActivity::class.java)
 
-        Espresso.onView(ViewMatchers.withId(R.id.secondary_main))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.secondary_main))
+            .check(matches(isDisplayed()))
     }
 
     @Test
     fun test_visibility_title_previousButton() {
         val activityScenario = ActivityScenario.launch(SecondaryActivity::class.java)
 
-        Espresso.onView(ViewMatchers.withId(R.id.text_secondary_title))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.text_secondary_title))
+            .check(matches(isDisplayed()))
 
-        Espresso.onView(ViewMatchers.withId(R.id.button_previous))
-            .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        onView(withId(R.id.button_previous))
+            .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
     }
 
     @Test
     fun test_titleString() {
-        val activityScenario = ActivityScenario.launch(MainActivity::class.java)
+        val activityScenario = ActivityScenario.launch(SecondaryActivity::class.java)
 
-        Espresso.onView(ViewMatchers.withId(R.id.text_secondary_title))
-            .check(ViewAssertions.matches(ViewMatchers.withText("Second Activity")))
+        onView(withId(R.id.text_secondary_title))
+            .check(matches(ViewMatchers.withText("Second Activity")))
     }
 
 }
